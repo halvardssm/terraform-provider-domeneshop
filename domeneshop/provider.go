@@ -3,6 +3,7 @@ package domeneshop
 import (
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"github.com/halvardssm/go-domeneshop-client/client DomeneshopClient"
 )
 
 func Provider() terraform.ResourceProvider {
@@ -30,9 +31,9 @@ func Provider() terraform.ResourceProvider {
 	return p
 }
 
-func providerConfigure(d *schema.ResourceData) (interface{}, error) {
+func providerConfigure(d *schema.ResourceData) (DomeneshopClient{}, error) {
 	token := d.Get("token").(string)
 	secret := d.Get("secret").(string)
 
-	return NewBasicAuthClient(token, secret), nil
+	return DomeneshopClient(token, secret), nil
 }
